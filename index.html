@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="doc-title">Ukasha Sani Zauro — Interactive Experience</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- FontAwesome for dark tech aesthetics -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Canvas Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Ambient Particle Canvas -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Audio Controls (Off by default) -->
+  <div id="audio-container" class="glass-panel hidden">
+    <button id="audio-toggle" aria-label="Toggle Audio"><i class="fas fa-music"></i></button>
+    <input type="range" id="audio-volume" min="0" max="1" step="0.1" value="0.5" aria-label="Volume">
+    <audio id="bg-audio" loop></audio>
+  </div>
+
+  <!-- Opening Terminal Intro Screen -->
+  <div id="intro-screen">
+    <div class="terminal-box glass-panel">
+      <div class="terminal-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="terminal-title">system_init.sh</span>
+      </div>
+      <div class="terminal-body">
+        <p id="terminal-text"></p>
+        <div class="progress-bar-container">
+          <div id="progress-bar"></div>
+        </div>
+      </div>
+      <button id="skip-intro-btn" class="btn-secondary">Skip Intro <i class="fas fa-forward"></i></button>
+    </div>
+  </div>
+
+  <!-- Main Website Container -->
+  <main id="main-content" class="hidden">
+    
+    <!-- Top Navigation Bar -->
+    <nav class="navbar glass-panel">
+      <div class="nav-logo" id="secret-trigger" title="Click me 3 times!">
+        <i class="fas fa-terminal neon-icon"></i>
+        <span id="nav-brand-name">Ukasha.dev</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#profile">Profile</a></li>
+        <li id="nav-story-link"><a href="#story">Story</a></li>
+        <li id="nav-projects-link"><a href="#projects">Projects</a></li>
+        <li id="nav-gallery-link"><a href="#gallery">Gallery</a></li>
+        <li><a href="#interactive">Message</a></li>
+      </ul>
+    </nav>
+
+    <!-- Header / Hero Section -->
+    <header class="hero-section glass-panel">
+      <div class="badge neon-border" id="hero-badge">Welcome</div>
+      <h1 id="hero-title">Initializing...</h1>
+      <p id="hero-subtitle" class="typing-subtitle"></p>
+    </header>
+
+    <!-- Profile Section -->
+    <section id="profile" class="section glass-panel">
+      <div class="profile-container">
+        <div class="profile-image-wrapper">
+          <img id="profile-img" src="" alt="Ukasha Sani Zauro" />
+          <div class="glow-effect"></div>
+        </div>
+        <div class="profile-details">
+          <h2 id="profile-name">Hi, I'm Ukasha</h2>
+          <h3 id="profile-role" class="neon-text">Computer Science & ICT Technician</h3>
+          <p id="profile-desc">Passionate about software engineering, system operations, and digital creativity.</p>
+          <div id="social-links" class="social-links"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Story Timeline Section -->
+    <section id="story" class="section glass-panel">
+      <h2><i class="fas fa-book-open neon-icon"></i> Interactive Story</h2>
+      <div id="timeline-container" class="timeline"></div>
+    </section>
+
+    <!-- Projects / Technology Section -->
+    <section id="projects" class="section glass-panel">
+      <h2><i class="fas fa-code neon-icon"></i> Things I'm Building</h2>
+      <div id="projects-grid" class="projects-grid"></div>
+    </section>
+
+    <!-- Interactive Photo Gallery -->
+    <section id="gallery" class="section glass-panel">
+      <h2><i class="fas fa-images neon-icon"></i> Gallery & Memories</h2>
+      <div id="gallery-grid" class="gallery-grid"></div>
+    </section>
+
+    <!-- Interactive Decision Component -->
+    <section id="interactive" class="section glass-panel text-center">
+      <h2 id="interactive-title">A Quick Question...</h2>
+      <p id="interactive-question" class="highlight-msg"></p>
+      
+      <div class="interactive-actions">
+        <button id="btn-yes" class="btn-primary"></button>
+        <button id="btn-no" class="btn-secondary"></button>
+      </div>
+
+      <!-- Respectful/Playful Alternative Option Modal/Message -->
+      <div id="no-response-msg" class="response-card glass-panel hidden">
+        <p id="no-response-text"></p>
+      </div>
+
+      <!-- Success Experience Container -->
+      <div id="success-screen" class="response-card glass-panel hidden success-glow">
+        <i class="fas fa-check-circle neon-icon large-icon"></i>
+        <h3 id="success-heading">Connection Established!</h3>
+        <p id="success-text"></p>
+      </div>
+    </section>
+
+    <!-- Response Options -->
+    <section id="response-options-section" class="section glass-panel text-center hidden">
+      <h3>Select a Response</h3>
+      <div id="response-buttons-grid" class="response-buttons-grid"></div>
+      <div id="selected-response-box" class="response-card glass-panel hidden">
+        <p id="selected-response-text"></p>
+      </div>
+    </section>
+
+    <!-- Final Invitation / Action Section -->
+    <section id="invitation" class="section glass-panel text-center">
+      <h2 id="invitation-heading">Let's Connect</h2>
+      <p id="invitation-message"></p>
+      <div id="invitation-buttons" class="invitation-buttons"></div>
+    </section>
+
+    <!-- Easter Egg Modal -->
+    <div id="secret-modal" class="modal hidden">
+      <div class="modal-content glass-panel">
+        <span id="close-secret" class="close-btn">&times;</span>
+        <i class="fas fa-user-secret neon-icon large-icon"></i>
+        <h3>Developer Secret Unlocked!</h3>
+        <p id="secret-text"></p>
+      </div>
+    </div>
+
+    <!-- Gallery Lightbox Modal -->
+    <div id="lightbox" class="modal hidden">
+      <span id="close-lightbox" class="close-btn">&times;</span>
+      <img id="lightbox-img" src="" alt="Expanded View" />
+      <p id="lightbox-caption"></p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>© <span id="footer-year"></span> <span id="footer-name">Ukasha Sani Zauro</span>. Engineered with precision.</p>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
